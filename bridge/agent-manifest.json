@@ -1,0 +1,10 @@
+{
+  "networks": [
+    {
+      "name": "plainly_document_helper"
+    }
+  ],
+  "actions": {
+    "version": 1
+  }
+}

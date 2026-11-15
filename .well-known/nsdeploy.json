@@ -1,0 +1,18 @@
+{
+  "protocol": "nsdeploy-link/v1",
+  "exports": [
+    {
+      "network": "plainly_document_helper",
+      "front_man": "document_helper",
+      "aliases": [
+        "plainly_document_helper",
+        "document_helper"
+      ],
+      "url": "plainly_document_helper"
+    }
+  ],
+  "imports": [],
+  "link_updates": {
+    "mode": "browser-local"
+  }
+}

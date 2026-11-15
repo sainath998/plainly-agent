@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Plainly: agents that read your documents without seeing your details</title>
+  <meta name="description" content="An open agentic website. Its agents explain bank letters, bills, rental agreements and lab reports in plain words, run on Gemini Nano in your own browser, and only ever see a redacted copy." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23163c32'/%3E%3Cpath d='M9 8h9a6 6 0 0 1 0 12h-4v4H9z' fill='%23f4efe4'/%3E%3Crect x='14' y='12' width='5' height='4' rx='1' fill='%23163c32'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="assistant.css" />
+  <script type="module" src="js/page.js"></script>
+  <script type="module" src="site.js"></script>
+</head>
+<body>
+  <header class="top">
+    <span class="brand"><span class="logo">P</span>Plainly <small>agentic edition</small></span>
+    <span id="engine-pill" class="pill"><i></i>Checking where the agents can run…</span>
+  </header>
+  <main>
+    <section class="hero">
+      <h1>Agents that read your documents<br /><em>without seeing your details.</em></h1>
+      <p class="sub">Paste a bank letter, a lab report, a rental agreement or a bill. Plainly hides your name, address, Aadhaar, PAN, account and phone numbers <b>before</b> any agent reads it. In Chrome with Gemini Nano, the agents also run on your own device, with no key and no server.</p>
+    </section>
+
+    <div class="grid">
+      <section class="card doc">
+        <div class="doc-head">
+          <h2>Your document</h2>
+          <div class="tabs" role="tablist">
+            <button class="tab on" data-view="mine" role="tab">What you see</button>
+            <button class="tab" data-view="agents" role="tab">What the agents see</button>
+          </div>
+        </div>
+        <div id="editor">
+          <textarea id="paste" placeholder="Paste the text of a letter, notice, report or agreement…"></textarea>
+          <div class="row">
+            <button id="btn-hide" class="primary">Hide my details</button>
+            <span class="muted small">or try a sample:</span>
+            <span id="samples"></span>
+          </div>
+        </div>
+        <p id="hidden-line" class="privacy" hidden></p>
+        <pre id="view-mine" class="docview" hidden></pre>
+        <pre id="view-agents" class="docview agents" hidden></pre>
+        <button id="btn-edit" class="link" hidden>Paste a different document</button>
+        <div id="notes"></div>
+      </section>
+
+      <section id="assistant" class="assistant card" aria-labelledby="assistant-heading">
+        <h2 id="assistant-heading">Ask Plainly</h2>
+        <p>Ask what the document means, what to do and by when, or where to complain. The assistant can load a sample and pin notes next to your document.</p>
+        <p class="assistant-note" id="assistant-note">The agents read only the redacted copy. On this device they run on Gemini Nano, and nothing leaves your computer. With your own key instead, your messages and the redacted copy go to the provider you choose.</p>
+        <p id="assistant-status" role="status">Connecting the assistant… If this message stays, the assistant could not load. You can still use the page directly.</p>
+        <div id="agent-app">
+          <div data-ns-slot="header"></div>
+          <div class="assistant-panels">
+            <div data-ns-slot="chat"></div>
+            <div data-ns-slot="agents"></div>
+          </div>
+          <div data-ns-slot="settings"></div>
+        </div>
+      </section>
+    </div>
+
+    <section class="how">
+      <div><b>Open agentic website</b><p>This site publishes its agent network (<a href="agent-manifest.json">agent-manifest.json</a>, <a href="plainly_document_helper.network.json">network</a>), so any agentic site can load it, following the Worldwide Agentic Web spec.</p></div>
+      <div><b>Private by construction</b><p>The website tools only ever return the redacted copy. Placeholders like [NAME 1] go to the agents; your real details stay in this page.</p></div>
+      <div><b>On-device inference</b><p>An OpenAI-compatible router that runs on Chrome's built-in Gemini Nano (<a href="js/nano-router.js">nano-router.js</a>). Other visitors can bring their own key.</p></div>
+    </section>
+  </main>
+  <footer class="foot">General information, not legal, financial or medical advice. All sample people and numbers are made up.</footer>
+</body>
+</html>

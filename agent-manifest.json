@@ -1,0 +1,88 @@
+{
+  "brand": "Plainly Assistant",
+  "networks": [
+    {
+      "name": "plainly_document_helper",
+      "front_man": "document_helper",
+      "hocon": "./plainly_document_helper.network.json",
+      "description": "Paste a bank letter, lab report, rental agreement or bill, and get it explained in plain words. Your personal details are hidden before any agent reads it.",
+      "tags": [
+        "agentified-website",
+        "privacy",
+        "on-device",
+        "india"
+      ],
+      "sample_queries": [
+        "Load the bank sample and tell me what I need to do and by when.",
+        "Pin a checklist of what I need to do.",
+        "Where can I complain if my bank freezes my account?",
+        "Is a deposit of two months' rent normal?",
+        "Can you send this letter to my bank for me?"
+      ]
+    }
+  ],
+  "llm_router": {
+    "base_url": "https://api.otari.ai/api/v1",
+    "mock": false,
+    "byok_router": "https://api.otari.ai/api/v1",
+    "on_device": {
+      "kind": "chrome-built-in-ai",
+      "router": "https://gemini-nano.on-device/v1",
+      "model": "gemini-nano",
+      "note": "When the visitor's Chrome has Gemini Nano, the page answers OpenAI-compatible requests to this router in the browser itself (js/nano-router.js). No key, no server, nothing leaves the device. Other visitors use the default router with their own key."
+    }
+  },
+  "allowed_peers": [],
+  "peer_policy": {
+    "mode": "closed",
+    "deny_origins": [],
+    "note": "Local agents and page-local actions only."
+  },
+  "agent_mcp": {
+    "protocol": "nsdeploy-agent-mcp/v1",
+    "network": "plainly_document_helper",
+    "front_man": "document_helper",
+    "available": false,
+    "reason": "This is a static bundle; a public MCP facade requires an application host."
+  },
+  "theme": {
+    "primary": "#163c32"
+  },
+  "linking": {
+    "protocol": "nsdeploy-link/v1",
+    "exports": [
+      {
+        "network": "plainly_document_helper",
+        "front_man": "document_helper",
+        "aliases": [
+          "plainly_document_helper",
+          "document_helper"
+        ],
+        "url": "plainly_document_helper"
+      }
+    ],
+    "imports": [],
+    "link_updates": {
+      "mode": "browser-local"
+    }
+  },
+  "deployment": {
+    "mode": "static",
+    "self_contained_runtime": true,
+    "browser_mock": false,
+    "direct_byok": true,
+    "direct_mcp_requires_cors": true,
+    "public_mcp_facade": false
+  },
+  "actions": {
+    "version": 1,
+    "module": "./site-actions.js",
+    "bridge": "./bridge/action-bridge.html",
+    "agentTools": [
+      "get_page_state",
+      "load_sample",
+      "pin_note",
+      "clear_notes"
+    ]
+  }
+}
